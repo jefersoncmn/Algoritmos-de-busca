@@ -1,24 +1,59 @@
 <h1 align="center">First work of the Intelligent Systems Fundaments</h1>
+<p align="center">Path Finding Algoritms</p>
+
+Tabela de conteúdos
+=================
+<!--ts-->
+   * [Sobre](#sobre)
+   * [Estudo](#estudo)
+   * [Features](#features)
+      * [Pre Requisitos](#pré-requisitos)
+   * [Tecnologias](#tecnologias)
+   * [Autor](#autor)
+<!--te-->
+
+<h4 align="center"> 
+	🚧  BTruck :truck: Em desenvolvimento...  🚧
+</h4>
 
 ### Sobre
 
-O trabalho consiste em implementar um sistema de navegação automática de um agente
-utilizando o algoritmo de busca em largura, profundidade, gulosa e A*.
-O agente deve ser capaz de calcular automaticamente a melhor rota para chegar a
-qualquer ponto de um ambiente representado através de um grafo que conecta com seus
-vértices as áreas, locais ou partes do caminho onde o agente pode navegar. O grafo
-representa então um cenário fictício que você deve criar, onde o agente irá tentar encontrar
-um prêmio (estado objetivo) que se encontra em algum local diferente de onde o agente
-inicia no ambiente (nó inicial), o grafo deve ter pelo menos 30 vértices. Além do prêmio
-final durante o percurso o agente também deve coletar recompensas que estão espalhadas
-no mapa. Os algoritmos de busca cega devem pegar as recompensas que aparecerem nos
-vértices visitados durante a verificação do caminho que leva ao prêmio final. Já os
-algoritmos com heurística devem ter em sua heurística uma forma de avaliar se é
-compensador deslocar da rota que leva para o prêmio final para pegar recompensas que
-estejam em vértices próximos durante esse caminho.
-O ambiente por onde o agente irá navegar é formado por diversos tipos de terrenos e em
-cada tipo de terreno o agente tem um grau de dificuldade diferente para andar. Por
-exemplo, o agente consegue passar facilmente por um terreno solido e plano, porem terá
-dificuldade para andar em um terreno rochoso ou um pântano.
-A melhor rota para chegar a um determinado ponto do ambiente é a rota que tem o menor
-custo.
+Esse é o primeiro trabalho para matéria de Fundamentos de Sistemas Inteligentes. Realizado no ano de 2021.
+Informações adicionais na Wiki do projeto.
+
+### Estudo
+
+No projeto será estudado:
+- Algoritmos de busca
+
+### Features
+
+- [ ] Desenvolvimento do cenário de testes
+- [ ] Implentação dos algoritmos de busca
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:<br>
+- [Git](https://git-scm.com);<br>
+- [VSCode](https://code.visualstudio.com/)
+
+### Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Unity](https://unity.com) Versão *2020.3.10f1*
+
+### Autor
+---
+
+<a href="https://www.linkedin.com/in/jefcmn/">
+ <img style="border-radius: 50%;" src="./github/photo.jpeg" width="100px;" alt=""/>
+ <br />
+ <sub><b>Jeferson Carlos Martin</b></sub></a> <a href="https://www.linkedin.com/in/jefcmn/" title="LinkedIn"></a>
+
+
+Feito por Jeferson Carlos Martin 👋🏽 Entre em contato!
+
+[![Linkedin Badge](https://img.shields.io/badge/-Jefersoncmn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jefcmn/)](https://www.linkedin.com/in/jefcmn/) 
+[![Gmail Badge](https://img.shields.io/badge/-jefersoncmnn@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:tgmarinho@gmail.com)](mailto:jefersoncmnn@gmail.com)
+
