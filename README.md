@@ -9,11 +9,11 @@ Tabela de conteúdos
    * [Features](#features)
       * [Pre Requisitos](#pré-requisitos)
    * [Tecnologias](#tecnologias)
-   * [Autor](#autor)
+   * [Autores](#autores)
 <!--te-->
 
 <h4 align="center"> 
-	🚧  BTruck :truck: Em desenvolvimento...  🚧
+	🚧  Em desenvolvimento...  🚧
 </h4>
 
 ### Sobre
@@ -43,17 +43,19 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Unity](https://unity.com) Versão *2020.3.10f1*
 
-### Autor
----
-
-<a href="https://www.linkedin.com/in/jefcmn/">
- <img style="border-radius: 50%;" src="./github/photo.jpeg" width="100px;" alt=""/>
- <br />
- <sub><b>Jeferson Carlos Martin</b></sub></a> <a href="https://www.linkedin.com/in/jefcmn/" title="LinkedIn"></a>
-
-
 Feito por Jeferson Carlos Martin 👋🏽 Entre em contato!
 
-[![Linkedin Badge](https://img.shields.io/badge/-Jefersoncmn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jefcmn/)](https://www.linkedin.com/in/jefcmn/) 
-[![Gmail Badge](https://img.shields.io/badge/-jefersoncmnn@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:tgmarinho@gmail.com)](mailto:jefersoncmnn@gmail.com)
+<h2 align="center">Autores<h3/>
 
+<table align="center">
+  <tr>
+    <td align="center"><a href="https://github.com/jefersoncmn"><img style="border-radius: 50%;" src="./github/jefersonphoto.jpeg" width="100px;" alt=""/><br/><sub><b>Jeferson Carlos Martin</b></sub></a><br /><a href="https://github.com/jefersoncmn" title="Jeferson Carlos Martin"></a>
+    </td>
+    <td align="center"><a href="https://github.com/iDeeby"><img style="border-radius: 50%;" src="./github/deboraphoto.jfif" width="100px;" alt=""/><br/><sub><b>Débora Marim</b></sub></a><br /><a href="https://github.com/iDeeby" title="Débora Marim"></a>
+    </td>
+</table>
+	
+[![Linkedin Badge](https://img.shields.io/badge/-Jefersoncmn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jefcmn/)](https://www.linkedin.com/in/jefcmn/) 
+[![Gmail Badge](https://img.shields.io/badge/-jefersoncmnn@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:jefersoncmnn@gmail.com)](mailto:jefersoncmnn@gmail.com)
+
+[![Linkedin Badge](https://img.shields.io/badge/-Debora_Marim-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/débora-marim-6b3b97193/)](https://www.linkedin.com/in/débora-marim-6b3b97193/) 
