@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGeneratorController : MonoBehaviour
+/// <summary>
+/// Classe responsavel por ser o estado que irá gerar o mapa para simulação dos algoritmos de busca
+/// </summary>
+public class MapGeneratorState : MonoBehaviour, SimulatorState
 {
-    public GameObject cellmodel;
+
     public GameObject[] cellmap;
 
+    public GeneralController generalController;
+
+    public void SetGeneralController(GeneralController generalController)
+    {
+        this.generalController = generalController;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +37,13 @@ public class MapGeneratorController : MonoBehaviour
         {
             for (int z = 0; z < lines; z++)
             {
-                cellmap[i] = Instantiate(cellmodel, new Vector3(x, 0, z), Quaternion.identity);
-
+                cellmap[i] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
+                defineTerrain(cellmap[i]);
                 i++;
             }
         }
+
+
     }
 
     /// <summary>
