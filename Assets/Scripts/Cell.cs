@@ -7,10 +7,10 @@ using UnityEngine;
 /// </summary>
 public class Cell : MonoBehaviour
 {
-    GameObject gameObject;
-    Cell left, right, up, down;
-    AmbientType ambientType;
-    int coins;
-    bool endPoint;
+    public GameObject gameObject;
+    public Cell left, right, up, down;
+    public AmbientType ambientType;
+    public int coins;
+    public bool endPoint;
 
 }
