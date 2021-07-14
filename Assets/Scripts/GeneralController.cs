@@ -22,12 +22,14 @@ public class GeneralController : MonoBehaviour
     int gulosaMemoryCost;
     int aStarMemoryCost;
 
-    MapGeneratorState mapGenerationState = new MapGeneratorState();
+    MapGeneratorState mapGenerationState;
+    PathFindingState pathFindingState;
+    RunPathState runPathState;
+
     void Start()
     {
+        mapGenerationState = gameObject.AddComponent(typeof(MapGeneratorState)) as MapGeneratorState;
         mapGenerationState.SetGeneralController(this);
-        // MapGeneratorState mapGenerationState = new MapGeneratorState();
-        // mapGenerationState.SetGeneralController(this);
 
         simulatorState = mapGenerationState;
     }
