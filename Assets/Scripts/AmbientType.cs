@@ -8,8 +8,8 @@ using UnityEngine;
 public enum AmbientType
 {
     Solido = 1,
-    plano = 1,
+    Plano = 1,
     Rochoso = 10,
-    Arenosos = 4,
-    Pântano = 20,
+    Arenoso = 4,
+    Pantano = 20,
 }
