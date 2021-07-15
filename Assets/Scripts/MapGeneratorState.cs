@@ -21,6 +21,8 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     void Start()
     {
         cellmap = new GameObject[36];
+        generalController.cellmap = new GameObject[36];
+
         spawnPaths(6, 6);
     }
 
@@ -38,7 +40,9 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             for (int z = 0; z < lines; z++)
             {
                 cellmap[i] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
-                defineTerrain(cellmap[i]);
+                cellmap[i].gameObject.AddComponent(typeof(Cell));
+                generalController.cellmap[i] = cellmap[i];
+                defineTerrain(generalController.cellmap[i]);
                 i++;
             }
         }
@@ -47,15 +51,44 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     }
 
     /// <summary>
-    /// Função básica para definir que tipo de terreno o bloco de caminho irá ser
+    /// Função para definir que tipo de terreno o bloco de caminho irá ser
     /// </summary>
-    /// <param name="gameObject">O objeto do caminho</param>
-    void defineTerrain(GameObject gameObject)
+    /// <param name="cell">O objeto do caminho</param>
+    void defineTerrain(GameObject cellObject)
     {
+        Cell cell = cellObject.GetComponent(typeof(Cell)) as Cell;
+        cell.gameObject = cellObject;
+        float perlinResult = Mathf.PerlinNoise((float)cellObject.gameObject.transform.position.x / 6 * Random.Range(0, 10), (float)cellObject.gameObject.transform.position.z / 6 * Random.Range(0, 10));
 
-        if (Mathf.PerlinNoise(0, 4) > 0.3)
+        if (perlinResult < 0.2f)
         {
-
+            cell.ambientType = AmbientType.Solido;
+            var cubeRenderer = cellObject.GetComponent<Renderer>();
+            cubeRenderer.material.color = Color.gray;
+        }
+        else if (perlinResult >= 0.2f && perlinResult < 0.4f)
+        {
+            cell.ambientType = AmbientType.Plano;
+            var cubeRenderer = cellObject.GetComponent<Renderer>();
+            cubeRenderer.material.color = Color.green;
+        }
+        else if (perlinResult >= 0.4f && perlinResult < 0.6f)
+        {
+            cell.ambientType = AmbientType.Arenoso;
+            var cubeRenderer = cellObject.GetComponent<Renderer>();
+            cubeRenderer.material.color = Color.red;
+        }
+        else if (perlinResult >= 0.6f && perlinResult < 0.8f)
+        {
+            cell.ambientType = AmbientType.Rochoso;
+            var cubeRenderer = cellObject.GetComponent<Renderer>();
+            cubeRenderer.material.color = Color.grey;
+        }
+        else
+        {
+            cell.ambientType = AmbientType.Pantano;
+            var cubeRenderer = cellObject.GetComponent<Renderer>();
+            cubeRenderer.material.color = Color.black;
         }
 
     }
