@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GeneralController : MonoBehaviour
 {
+    public GameObject[] cellmap;
     public SimulatorState simulatorState;
     public GameObject cellmodel;
     Cell[] sucessorFuctionProfundidade;
@@ -28,6 +29,7 @@ public class GeneralController : MonoBehaviour
 
     void Start()
     {
+
         mapGenerationState = gameObject.AddComponent(typeof(MapGeneratorState)) as MapGeneratorState;
         mapGenerationState.SetGeneralController(this);
 
