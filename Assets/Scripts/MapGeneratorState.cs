@@ -40,10 +40,12 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             for (int z = 0; z < lines; z++)
             {
                 cellmap[i] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
-                cellmap[i].gameObject.AddComponent(typeof(Cell));
-                generalController.cellmap[i] = cellmap[i];
-                defineTerrain(generalController.cellmap[i]);
-                i++;
+                cellmap[i].gameObject.AddComponent(typeof(Cell));//Coloca a classe Cell no bloco
+                Cell cell = cellmap[i].GetComponent(typeof(Cell)) as Cell;//Pega a classe Cell que foi colocada no bloco (feita na linha anterior)
+                cell.gameObject = cellmap[i];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
+                generalController.cellmap[i] = cellmap[i];//Armazena os objetos na classe GeneraController
+                defineTerrain(generalController.cellmap[i]);//Define o tipo de terreno
+                i++;//Vamos para o próximo bloco
             }
         }
 
@@ -57,7 +59,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     void defineTerrain(GameObject cellObject)
     {
         Cell cell = cellObject.GetComponent(typeof(Cell)) as Cell;
-        cell.gameObject = cellObject;
+
         float perlinResult = Mathf.PerlinNoise((float)cellObject.gameObject.transform.position.x / 6 * Random.Range(0, 10), (float)cellObject.gameObject.transform.position.z / 6 * Random.Range(0, 10));
 
         if (perlinResult < 0.2f)
