@@ -26,6 +26,8 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         spawnPaths(6, 6);
     }
 
+    Cell referenciaMatriz, auxiliarColuna, auxiliarLinha, ponteiroFixoA, ponteiroFixoB, ponteiroMovelA, ponteiroMovelB, referenciaAtual;
+
     /// <summary>
     /// Código responsável por instanciar os caminhos do mapa
     /// </summary>
@@ -33,31 +35,33 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     /// <param name="lines">Quantidade de linhas</param>
     void spawnPaths(int columns, int lines)
     {
-        Cell referenciaMatriz, auxiliarColuna, auxiliarLinha, ponteiroFixoA, ponteiroFixoB, ponteiroMovelA,
-        ponteiroMovelB, referenciaAtual;
+
         int i = 0;
 
         for (int x = 0; x < columns; x++)
         {
             referenciaAtual = createCell(i, x, 0);
             i++;
-           
-            if( referenciaMatriz == NULL){
+
+            if (referenciaMatriz == null)
+            {
                 referenciaMatriz = referenciaAtual;
                 auxiliarColuna = referenciaAtual;
                 auxiliarLinha = referenciaAtual;
-            }else{
+            }
+            else
+            {
                 referenciaAtual.up = auxiliarColuna;
                 auxiliarColuna.down = referenciaAtual;
                 auxiliarColuna = referenciaAtual;
                 auxiliarLinha = auxiliarColuna;
-                 }
+            }
 
-            for (int z = 0; z < lines; z++)
+            for (int z = 0; z < lines - 1; z++)
             {
-                referenciaAtual = createCell(i, 0, z);
+                referenciaAtual = createCell(i, x, z + 1);
                 i++;
-                
+
                 referenciaAtual.left = auxiliarLinha;
                 auxiliarLinha.right = referenciaAtual;
                 auxiliarLinha = referenciaAtual;
@@ -69,10 +73,12 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         ponteiroFixoB = referenciaMatriz.down;
         ponteiroMovelA = ponteiroFixoA.right;
         ponteiroMovelB = ponteiroFixoB.right;
-        
-        for (int x = 0; x < columns; x++){
 
-            for (int z = 0; z < lines; z++){
+        for (int x = 0; x < columns; x++)
+        {
+
+            for (int z = 0; z < lines - 1; z++)
+            {
 
                 ponteiroMovelA.down = ponteiroMovelB;
                 ponteiroMovelB.up = ponteiroMovelA;
@@ -83,7 +89,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
 
             ponteiroFixoA = ponteiroFixoB;
 
-            if(ponteiroFixoB.down != NULL)
+            if (ponteiroFixoB.down != null)
                 ponteiroFixoB = ponteiroFixoB.down;
 
             ponteiroMovelA = ponteiroFixoA.right;
@@ -99,16 +105,18 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     /// <param name="x">variavel da posição x</param>
     /// <param name="z">variavel da posição z</param>
 
-    Cell createCell(int index, int x, int z){
-        
-            cellmap[i] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
-            cellmap[i].gameObject.AddComponent(typeof(Cell));//Coloca a classe Cell no bloco
-            Cell cell = cellmap[i].GetComponent(typeof(Cell)) as Cell;//Pega a classe Cell que foi colocada no bloco (feita na linha anterior)
-            cell.gameObject = cellmap[i];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
-            generalController.cellmap[i] = cellmap[i];//Armazena os objetos na classe GeneraController
-            defineTerrain(generalController.cellmap[i]);//Define o tipo de terreno
+    Cell createCell(int index, int x, int z)
+    {
 
-            return cell;
+        cellmap[index] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
+        cellmap[index].gameObject.AddComponent(typeof(Cell));//Coloca a classe Cell no bloco
+        Cell cell = cellmap[index].GetComponent(typeof(Cell)) as Cell;//Pega a classe Cell que foi colocada no bloco (feita na linha anterior)
+        cell.gameObject = cellmap[index];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
+        cell.coins = index;
+        generalController.cellmap[index] = cellmap[index];//Armazena os objetos na classe GeneraController
+        defineTerrain(generalController.cellmap[index]);//Define o tipo de terreno
+
+        return cell;
     }
 
 
