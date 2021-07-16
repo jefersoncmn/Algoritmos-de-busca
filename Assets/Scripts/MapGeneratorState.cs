@@ -33,24 +33,84 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     /// <param name="lines">Quantidade de linhas</param>
     void spawnPaths(int columns, int lines)
     {
+        Cell referenciaMatriz, auxiliarColuna, auxiliarLinha, ponteiroFixoA, ponteiroFixoB, ponteiroMovelA,
+        ponteiroMovelB, referenciaAtual;
         int i = 0;
 
         for (int x = 0; x < columns; x++)
         {
+            referenciaAtual = createCell(i, x, 0);
+            i++;
+           
+            if( referenciaMatriz == NULL){
+                referenciaMatriz = referenciaAtual;
+                auxiliarColuna = referenciaAtual;
+                auxiliarLinha = referenciaAtual;
+            }else{
+                referenciaAtual.up = auxiliarColuna;
+                auxiliarColuna.down = referenciaAtual;
+                auxiliarColuna = referenciaAtual;
+                auxiliarLinha = auxiliarColuna;
+                 }
+
             for (int z = 0; z < lines; z++)
             {
-                cellmap[i] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
-                cellmap[i].gameObject.AddComponent(typeof(Cell));//Coloca a classe Cell no bloco
-                Cell cell = cellmap[i].GetComponent(typeof(Cell)) as Cell;//Pega a classe Cell que foi colocada no bloco (feita na linha anterior)
-                cell.gameObject = cellmap[i];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
-                generalController.cellmap[i] = cellmap[i];//Armazena os objetos na classe GeneraController
-                defineTerrain(generalController.cellmap[i]);//Define o tipo de terreno
-                i++;//Vamos para o próximo bloco
+                referenciaAtual = createCell(i, 0, z);
+                i++;
+                
+                referenciaAtual.left = auxiliarLinha;
+                auxiliarLinha.right = referenciaAtual;
+                auxiliarLinha = referenciaAtual;
+
             }
         }
 
+        ponteiroFixoA = referenciaMatriz;
+        ponteiroFixoB = referenciaMatriz.down;
+        ponteiroMovelA = ponteiroFixoA.right;
+        ponteiroMovelB = ponteiroFixoB.right;
+        
+        for (int x = 0; x < columns; x++){
+
+            for (int z = 0; z < lines; z++){
+
+                ponteiroMovelA.down = ponteiroMovelB;
+                ponteiroMovelB.up = ponteiroMovelA;
+
+                ponteiroMovelA = ponteiroMovelA.right;
+                ponteiroMovelB = ponteiroMovelB.right;
+            }
+
+            ponteiroFixoA = ponteiroFixoB;
+
+            if(ponteiroFixoB.down != NULL)
+                ponteiroFixoB = ponteiroFixoB.down;
+
+            ponteiroMovelA = ponteiroFixoA.right;
+            ponteiroMovelB = ponteiroFixoB.right;
+        }
 
     }
+
+    /// <summary>
+    /// Função para criação de novas celulas
+    /// </summary>
+    /// <param name="index">variavel que indica qual a celula da matriz está sendo criada no momento</param>
+    /// <param name="x">variavel da posição x</param>
+    /// <param name="z">variavel da posição z</param>
+
+    Cell createCell(int index, int x, int z){
+        
+            cellmap[i] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
+            cellmap[i].gameObject.AddComponent(typeof(Cell));//Coloca a classe Cell no bloco
+            Cell cell = cellmap[i].GetComponent(typeof(Cell)) as Cell;//Pega a classe Cell que foi colocada no bloco (feita na linha anterior)
+            cell.gameObject = cellmap[i];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
+            generalController.cellmap[i] = cellmap[i];//Armazena os objetos na classe GeneraController
+            defineTerrain(generalController.cellmap[i]);//Define o tipo de terreno
+
+            return cell;
+    }
+
 
     /// <summary>
     /// Função para definir que tipo de terreno o bloco de caminho irá ser
