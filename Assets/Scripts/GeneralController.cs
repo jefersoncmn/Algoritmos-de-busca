@@ -10,10 +10,10 @@ public class GeneralController : MonoBehaviour
     public GameObject[] cellmap;
     public SimulatorState simulatorState;
     public GameObject cellmodel;
-    Cell[] sucessorFuctionProfundidade;
-    Cell[] sucessorFuctionLargura;
-    Cell[] sucessorFuctionGulosa;
-    Cell[] sucessorFuctionAStar;
+    public List<Cell> sucessorFuctionProfundidade;
+    public List<Cell> sucessorFuctionLargura;
+    public List<Cell> sucessorFuctionGulosa;
+    public List<Cell> sucessorFuctionAStar;
     double profundidadeTime;
     double larguraTime;
     double gulosaTime;
