@@ -8,6 +8,11 @@ using UnityEngine;
 public class PathFindingState : SimulatorState
 {
     Cell[] cellmap = new Cell[36];
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cellmapObject"></param>
     public PathFindingState(GameObject[] cellmapObject)
     {
         Debug.Log("Estado PathFinding");
@@ -102,7 +107,11 @@ public class PathFindingState : SimulatorState
 
     }
 
-
+    /// <summary>
+    /// Função que inicializa o ambiente e variáveis para o uso do algoritmo de busca por profundidade 
+    /// </summary>
+    /// <param name="cells">O vetor com as celulas do mapa</param>
+    /// <returns>Retorna a lista com o caminho das celulas que percorreu</returns>
     List<Cell> BuscaProfundidade(Cell[] cells)
     {
         Debug.Log("Busca em Profundidade inicializada!");
@@ -122,6 +131,13 @@ public class PathFindingState : SimulatorState
         return verticesMarcados;
     }
 
+    /// <summary>
+    /// Algoritmo de busca por profundidade
+    /// Ele é recursivo
+    /// </summary>
+    /// <param name="ponteiroAuxiliar">Celula que está explorando</param>
+    /// <param name="verticesMarcados">Lista com celulas que já foram visitadas</param>
+    /// <returns></returns>
     List<Cell> DeepFindSearch(Cell ponteiroAuxiliar, List<Cell> verticesMarcados)
     {
 
