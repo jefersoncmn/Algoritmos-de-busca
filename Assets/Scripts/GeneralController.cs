@@ -8,6 +8,12 @@ using UnityEngine.UI;
 /// </summary>
 public class GeneralController : MonoBehaviour
 {
+
+    public int sizeMap = 36;
+
+    public int celulaObjetivo = 35;
+
+    public int indiceDeMuros = 200;
     public GameObject[] cellmap;
     public SimulatorState simulatorState;
     public GameObject cellmodel;
@@ -39,7 +45,7 @@ public class GeneralController : MonoBehaviour
 
     RunPathState runPathState;
 
-    int algoritmOrder = 3;
+    int algoritmOrder = 2;
 
     void Start()
     {

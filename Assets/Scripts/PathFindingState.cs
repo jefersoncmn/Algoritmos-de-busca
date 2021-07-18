@@ -11,8 +11,6 @@ public class PathFindingState : SimulatorState
 
     GeneralController generalController;
 
-    int celulaobjetivo = 35;
-
     /// <summary>
     /// Construtor da classe que reproduzirá os algoritmos de busca
     /// </summary>
@@ -22,27 +20,31 @@ public class PathFindingState : SimulatorState
         this.generalController = generalController;
 
         //Debug.Log("Estado PathFinding");
-        for (int i = 0; i < generalController.cellmap.Length; i++)
-        {
-            cellmap[i] = generalController.cellmap[i].GetComponent<Cell>() as Cell;
-            if (i == celulaobjetivo)
-            {
-                cellmap[i].endPoint = true;
-            }
-        }
+        defineGoal();
 
         generalController.sucessorFuctionLargura = BuscaLargura(cellmap);
         generalController.sucessorFuctionProfundidade = BuscaProfundidade(cellmap);
         generalController.sucessorFuctionGulosa = BuscaGulosa(cellmap);
         generalController.sucessorFuctionAStar = BuscaAStar(cellmap);
 
-        // for (int x = 0; x < generalController.sucessorFuctionProfundidade.Count; x++)
-        // {
-        //     Debug.Log("Passo = " + x + " Celula = " + generalController.sucessorFuctionProfundidade[x].coins);
-        // }
-
         generalController.simulate();
 
+    }
+
+    /// <summary>
+    /// Função que define a celula objetivo do mapa.
+    /// Que os algoritmos de busca irão encontrar uma rota pra chegar nela.
+    /// /// </summary>
+    void defineGoal()
+    {
+        for (int i = 0; i < generalController.cellmap.Length; i++)
+        {
+            cellmap[i] = generalController.cellmap[i].GetComponent<Cell>() as Cell;
+            if (i == generalController.celulaObjetivo)
+            {
+                cellmap[i].endPoint = true;
+            }
+        }
     }
 
 
@@ -242,10 +244,10 @@ public class PathFindingState : SimulatorState
 
         BuscaGulosaAlgoritmo(ponteiro, verticesMarcados, melhoresValoresHeuristicos, path);
 
-        // for (int i = 0; i < path.Count; i++)
-        // {
-        //     Debug.Log("Posição percorrida " + i + " celula =" + path[i].coins);
-        // }
+        for (int i = 0; i < path.Count; i++)
+        {
+            //Debug.Log("Posição percorrida " + i + " celula =" + path[i].coins);
+        }
 
         return path;
     }
@@ -272,9 +274,13 @@ public class PathFindingState : SimulatorState
             adjacente[3] = cell.down;
         }
         //Debug.Log("Ponteiro =" + cell.coins);
-        path.Add(cell);
+
         if (cell.endPoint == true)
         { //verifica se o cara é o objetivo
+            for (int index = 0; index < cell.pathmemory.Count; index++)
+            { //pega as rotas antigas pra celula nova explorada e guarda na memoria
+                path.Add(cell.pathmemory[index]);
+            }
             encontrado = true;
             //Debug.Log("Objetivo encontrado!" + "Celula " + cell.coins);
             return null;
@@ -289,15 +295,26 @@ public class PathFindingState : SimulatorState
                 if (!verticesMarcados.Contains(adjacente[i]) && !cell.endPoint == true)
                 {
                     verticesMarcados.Add(adjacente[i]);
-                    //Debug.Log("Celula percorrida " + adjacente[i].coins);
+
+                    if (adjacente[i].pathmemory.Count == 0)
+                    {
+                        for (int index = 0; index < cell.pathmemory.Count; index++)
+                        { //pega as rotas antigas pra celula nova explorada e guarda na memoria
+                            adjacente[i].pathmemory.Add(cell.pathmemory[index]);
+                        }
+                        adjacente[i].pathmemory.Add(adjacente[i]);
+                    }
+
                     melhoresValoresHeuristicos.Add(adjacente[i]);
                 }
             }
         }
-        Cell melhorCelula = cell;
+
+        Cell melhorCelula = melhoresValoresHeuristicos[0];
+        melhoresValoresHeuristicos.Remove(cell);
         for (int i = 0; i < melhoresValoresHeuristicos.Count; i++) //isso vai assegurar que ele só vai andar pelo que tem a melhor heurística
         {
-            if (Vector3.Distance(melhoresValoresHeuristicos[i].gameObject.transform.position, cellmap[celulaobjetivo].gameObject.transform.position) < Vector3.Distance(melhorCelula.gameObject.transform.position, cellmap[celulaobjetivo].gameObject.transform.position))
+            if (Vector3.Distance(melhoresValoresHeuristicos[i].gameObject.transform.position, cellmap[generalController.celulaObjetivo].gameObject.transform.position) < Vector3.Distance(melhorCelula.gameObject.transform.position, cellmap[generalController.celulaObjetivo].gameObject.transform.position))
             {
                 //Debug.Log("Distancia da celula = " + melhorCelula.coins + " ate o objetivo é = " + Vector3.Distance(melhorCelula.gameObject.transform.position, cellmap[34].gameObject.transform.position));
                 melhorCelula = melhoresValoresHeuristicos[i];
@@ -311,14 +328,13 @@ public class PathFindingState : SimulatorState
             BuscaGulosaAlgoritmo(melhorCelula, verticesMarcados, melhoresValoresHeuristicos, path);
         }
 
-
         return null;
     }
 
 
     List<Cell> BuscaAStar(Cell[] cells)
     {
-        Debug.Log("Busca AStar inicializada!");
+        //Debug.Log("Busca AStar inicializada!");
         List<Cell> verticesMarcados = new List<Cell>();
         List<Cell> melhoresValoresHeuristicos = new List<Cell>();
         List<Cell> path = new List<Cell>();
@@ -380,9 +396,7 @@ public class PathFindingState : SimulatorState
                 path.Add(cell.pathmemory[index]);
             }
 
-
-
-            Debug.Log("Objetivo encontrado!" + "Celula " + cell.coins);
+            //Debug.Log("Objetivo encontrado!" + "Celula " + cell.coins);
             encontrado = true;
             return null;
         }
@@ -417,7 +431,7 @@ public class PathFindingState : SimulatorState
 
         for (int i = 0; i < melhoresValoresHeuristicos.Count; i++) //isso vai assegurar que ele só vai andar pelo que tem a melhor heurística
         {
-            if (Vector3.Distance(melhoresValoresHeuristicos[i].gameObject.transform.position, cellmap[celulaobjetivo].gameObject.transform.position) + ((float)melhoresValoresHeuristicos[i].ambientType) < Vector3.Distance(melhorCelula.gameObject.transform.position, cellmap[celulaobjetivo].gameObject.transform.position) + ((float)melhorCelula.ambientType))
+            if (Vector3.Distance(melhoresValoresHeuristicos[i].gameObject.transform.position, cellmap[generalController.celulaObjetivo].gameObject.transform.position) + ((float)melhoresValoresHeuristicos[i].ambientType) < Vector3.Distance(melhorCelula.gameObject.transform.position, cellmap[generalController.celulaObjetivo].gameObject.transform.position) + ((float)melhorCelula.ambientType))
             {
                 //Debug.Log("Distancia da celula anterior = " + melhorCelula.coins + " ate o objetivo é = " + Vector3.Distance(melhorCelula.gameObject.transform.position, cellmap[34].gameObject.transform.position));
                 melhorCelula = melhoresValoresHeuristicos[i];

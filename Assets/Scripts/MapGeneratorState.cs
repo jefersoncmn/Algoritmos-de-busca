@@ -20,7 +20,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     // Start is called before the first frame update
     void Start()
     {
-        cellmap = new GameObject[36];
+        cellmap = new GameObject[generalController.sizeMap];
         generalController.cellmap = cellmap;
 
         spawnPaths(6, 6);
@@ -95,6 +95,8 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiroMovelA = ponteiroFixoA.right;
             ponteiroMovelB = ponteiroFixoB.right;
         }
+        createWall(cellmap);
+
         generalController.simulatorState = new PathFindingState(generalController);
     }
 
@@ -163,6 +165,62 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
 
     }
 
+
+    /// <summary>
+    /// Função que seleciona randomicamente celulas para serem tiradas do mapa. Que será uma espécie de parede.
+    /// </summary>
+    /// <param name="cellmap"></param>
+    void createWall(GameObject[] cellmap)
+    {
+        for (int i = 0; i < generalController.sizeMap; i++)
+        {
+            int valorRandomizado;
+
+            valorRandomizado = Random.Range(1, generalController.indiceDeMuros);
+            if (valorRandomizado < 36 && i != 0 && i != generalController.celulaObjetivo)
+            {
+                deleteCellInTheMap(cellmap[i]);
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// Função que deletará a celula do mapa
+    /// </summary>
+    /// <param name="cell">Objeto da celula a ser deletada</param>
+    void deleteCellInTheMap(GameObject cell)
+    {
+        Cell cellclass = cell.gameObject.GetComponent<Cell>() as Cell;
+
+        Cell ponteiro;
+
+        if (cellclass.right != null)
+        {
+            ponteiro = cellclass.right;
+            ponteiro.left = null;
+        }
+
+
+        if (cellclass.left != null)
+        {
+            ponteiro = cellclass.left;
+            ponteiro.right = null;
+        }
+
+        if (cellclass.up != null)
+        {
+            ponteiro = cellclass.up;
+            ponteiro.down = null;
+        }
+        if (cellclass.down != null)
+        {
+            ponteiro = cellclass.down;
+            ponteiro.up = null;
+        }
+
+        Destroy(cell);
+    }
 
 
 }
