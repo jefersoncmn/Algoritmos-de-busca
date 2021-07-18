@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Cell : MonoBehaviour
 {
-    public GameObject gameObject;
+    public GameObject cellObject;
     public Cell left, right, up, down;
     public AmbientType ambientType;
     public int coins;

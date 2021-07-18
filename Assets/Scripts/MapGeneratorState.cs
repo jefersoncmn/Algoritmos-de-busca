@@ -21,7 +21,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
     void Start()
     {
         cellmap = new GameObject[36];
-        generalController.cellmap = new GameObject[36];
+        generalController.cellmap = cellmap;
 
         spawnPaths(6, 6);
     }
@@ -95,7 +95,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiroMovelA = ponteiroFixoA.right;
             ponteiroMovelB = ponteiroFixoB.right;
         }
-
+        generalController.simulatorState = new PathFindingState(generalController);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         cellmap[index] = Instantiate(generalController.cellmodel, new Vector3(x, 0, z), Quaternion.identity);//intancia um bloco
         cellmap[index].gameObject.AddComponent(typeof(Cell));//Coloca a classe Cell no bloco
         Cell cell = cellmap[index].GetComponent(typeof(Cell)) as Cell;//Pega a classe Cell que foi colocada no bloco (feita na linha anterior)
-        cell.gameObject = cellmap[index];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
+        cell.cellObject = cellmap[index];//E dentro da classe Cell define o gameObject pra ele saber quem é o objeto dele
         cell.coins = index;
         generalController.cellmap[index] = cellmap[index];//Armazena os objetos na classe GeneraController
         defineTerrain(generalController.cellmap[index]);//Define o tipo de terreno
