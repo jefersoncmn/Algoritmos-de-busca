@@ -9,12 +9,16 @@ public class PathFindingState : SimulatorState
 {
     Cell[] cellmap = new Cell[36];
 
+    GeneralController generalController;
+
     /// <summary>
-    /// 
+    /// Construtor da classe que reproduzirá os algoritmos de busca
     /// </summary>
     /// <param name="cellmapObject"></param>
     public PathFindingState(GeneralController generalController)
     {
+        this.generalController = generalController;
+
         Debug.Log("Estado PathFinding");
         for (int i = 0; i < generalController.cellmap.Length; i++)
         {
@@ -25,12 +29,15 @@ public class PathFindingState : SimulatorState
             }
         }
 
-        //generalController.sucessorFuctionLargura = BuscaLargura(cellmap);
-        //generalController.sucessorFuctionProfundidade = BuscaProfundidade(cellmap);
-        //generalController.sucessorFuctionGulosa = BuscaGulosa(cellmap);
+        generalController.sucessorFuctionLargura = BuscaLargura(cellmap);
+        generalController.sucessorFuctionProfundidade = BuscaProfundidade(cellmap);
+        generalController.sucessorFuctionGulosa = BuscaGulosa(cellmap);
         generalController.sucessorFuctionAStar = BuscaAStar(cellmap);
 
+        generalController.simulate();
+
     }
+
 
     /// <summary>
     /// Algoritmo de busca em largura
@@ -92,11 +99,15 @@ public class PathFindingState : SimulatorState
                     // }
                     if (adjacente[i].endPoint == true)
                     { //se for o nó objetivo
-                        Debug.Log("Objeto encontrado");
-                        for (int f = 0; f < verticesMarcados.Count; f++)
+                        //Debug.Log("Objeto encontrado");
+                        generalController.larguraMemoryCost = verticesMarcados.Count;//Quantidade de nós guardados na memória
+                        generalController.larguraTime = 0;
+
+                        for (int x = 0; x < verticesMarcados.Count; x++)
                         {
-                            Debug.Log("Posição percorrida " + f + " celula =" + verticesMarcados[f].coins);
+                            generalController.larguraMovimentCost += ((double)verticesMarcados[x].ambientType); //custo de movimentacao
                         }
+
                         return verticesMarcados;
                     }
                 }
@@ -127,9 +138,14 @@ public class PathFindingState : SimulatorState
 
         DeepFindSearch(ponteiro, verticesMarcados);
 
+        generalController.profundidadeMemoryCost = verticesMarcados.Count;
+
+        generalController.profundidadeTime = 0;
+
         for (int i = 0; i < verticesMarcados.Count; i++)
         {
-            Debug.Log("Posição percorrida " + i + " celula =" + verticesMarcados[i].coins);
+            //Debug.Log("Posição percorrida " + i + " celula =" + verticesMarcados[i].coins);
+            generalController.profundidadeMovimentCost += ((double)verticesMarcados[i].ambientType);
         }
 
         return verticesMarcados;
