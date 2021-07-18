@@ -39,7 +39,7 @@ public class GeneralController : MonoBehaviour
 
     RunPathState runPathState;
 
-    int algoritmOrder = 0;
+    int algoritmOrder = 3;
 
     void Start()
     {

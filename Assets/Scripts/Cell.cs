@@ -13,4 +13,6 @@ public class Cell : MonoBehaviour
     public int coins;
     public bool endPoint;
 
+    public List<Cell> pathmemory = new List<Cell>();
+
 }
