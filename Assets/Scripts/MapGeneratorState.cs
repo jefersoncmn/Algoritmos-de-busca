@@ -146,7 +146,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         {
             cell.ambientType = AmbientType.Arenoso;
             var cubeRenderer = cellObject.GetComponent<Renderer>();
-            cubeRenderer.material.color = Color.red;
+            cubeRenderer.material.color = Color.yellow;
         }
         else if (perlinResult >= 0.6f && perlinResult < 0.8f)
         {

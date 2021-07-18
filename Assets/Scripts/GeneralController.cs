@@ -72,30 +72,34 @@ public class GeneralController : MonoBehaviour
     /// </summary>
     public void nextAlgoritm()
     {
-        switch (algoritmOrder)
+        if (runPathState.runningTest == false)
         {
-            case 0:
-                runPathState.RunLargura();
-                showValues("Busca em Largura", larguraMemoryCost, larguraTime, larguraMovimentCost);
-                algoritmOrder++;
-                break;
-            case 1:
-                runPathState.RunProfundidade();
-                showValues("Busca em profundidade", profundidadeMemoryCost, profundidadeTime, profundidadeMovimentCost);
-                algoritmOrder++;
-                break;
-            case 2:
-                runPathState.RunGulosa();
-                showValues("Busca Gulosa", gulosaMemoryCost, gulosaTime, gulosaMovimentCost);
-                algoritmOrder++;
-                break;
-            case 3:
-                runPathState.RunAStar();
-                showValues("Busca A*", aStarMemoryCost, aStarTime, aStarMovimentCost);
-                algoritmOrder++;
-                break;
-            default:
-                break;
+            switch (algoritmOrder)
+            {
+                case 0:
+                    runPathState.RunLargura();
+                    showValues("Busca em Largura", larguraMemoryCost, larguraTime, larguraMovimentCost);
+                    algoritmOrder++;
+                    break;
+                case 1:
+                    runPathState.RunProfundidade();
+                    showValues("Busca em profundidade", profundidadeMemoryCost, profundidadeTime, profundidadeMovimentCost);
+                    algoritmOrder++;
+                    break;
+                case 2:
+                    runPathState.RunGulosa();
+                    showValues("Busca Gulosa", gulosaMemoryCost, gulosaTime, gulosaMovimentCost);
+                    algoritmOrder++;
+                    break;
+                case 3:
+                    runPathState.RunAStar();
+                    showValues("Busca A*", aStarMemoryCost, aStarTime, aStarMovimentCost);
+                    algoritmOrder++;
+                    break;
+                default:
+                    break;
+            }
         }
+
     }
 }

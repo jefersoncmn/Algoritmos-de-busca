@@ -8,6 +8,7 @@ using UnityEngine;
 public class RunPathState : MonoBehaviour, SimulatorState
 {
     GeneralController generalController;
+    public bool runningTest = false;
     public void SetGeneralController(GeneralController generalController)
     {
         this.generalController = generalController;
@@ -19,7 +20,10 @@ public class RunPathState : MonoBehaviour, SimulatorState
     /// </summary>
     public void RunLargura()
     {
-        StartCoroutine(TestRoute(generalController.sucessorFuctionLargura));
+        if (runningTest == false)
+        {
+            StartCoroutine(TestRoute(generalController.sucessorFuctionLargura));
+        }
 
     }
 
@@ -28,7 +32,10 @@ public class RunPathState : MonoBehaviour, SimulatorState
     /// </summary>
     public void RunProfundidade()
     {
-        StartCoroutine(TestRoute(generalController.sucessorFuctionProfundidade));
+        if (runningTest == false)
+        {
+            StartCoroutine(TestRoute(generalController.sucessorFuctionProfundidade));
+        }
 
     }
 
@@ -37,7 +44,10 @@ public class RunPathState : MonoBehaviour, SimulatorState
     /// </summary>
     public void RunGulosa()
     {
-        StartCoroutine(TestRoute(generalController.sucessorFuctionGulosa));
+        if (runningTest == false)
+        {
+            StartCoroutine(TestRoute(generalController.sucessorFuctionGulosa));
+        }
 
     }
 
@@ -46,17 +56,22 @@ public class RunPathState : MonoBehaviour, SimulatorState
     /// </summary>
     public void RunAStar()
     {
-        StartCoroutine(TestRoute(generalController.sucessorFuctionAStar));
+        if (runningTest == false)
+        {
+            StartCoroutine(TestRoute(generalController.sucessorFuctionAStar));
+        }
 
     }
 
     /// <summary>
     /// Função que irá fazer a sequencia de todos os movimentos realizados nas rotas retornadas pelos algoritmos de busca
     /// </summary>
-    /// <param name="path"></param>
+    /// <param name="path">Lista com as celulas do caminho a ser percorrido</param>
     /// <returns></returns>
     IEnumerator TestRoute(List<Cell> path)
     {
+        runningTest = true;
+
         GameObject dummy = Instantiate(generalController.testmodel, new Vector3(0, 1.5f, 0), Quaternion.identity);
 
         for (int i = 0; i < path.Count - 1; i++)
@@ -65,6 +80,9 @@ public class RunPathState : MonoBehaviour, SimulatorState
             yield return new WaitForSeconds(1);
         }
 
+        Destroy(dummy);
+
+        runningTest = false;
     }
 
     /// <summary>
