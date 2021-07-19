@@ -22,10 +22,7 @@ public class GeneralController : MonoBehaviour
     public List<Cell> sucessorFuctionLargura;
     public List<Cell> sucessorFuctionGulosa;
     public List<Cell> sucessorFuctionAStar;
-    public double profundidadeTime;
-    public double larguraTime;
-    public double gulosaTime;
-    public double aStarTime;
+
     public int profundidadeMemoryCost;
     public int larguraMemoryCost;
     public int gulosaMemoryCost;
@@ -37,7 +34,7 @@ public class GeneralController : MonoBehaviour
     public double aStarMovimentCost;
 
     public Text textMemory;
-    public Text textExecutionTime;
+
     public Text textMovimentCost;
     public Text textAlgoritm;
 
@@ -45,7 +42,7 @@ public class GeneralController : MonoBehaviour
 
     RunPathState runPathState;
 
-    int algoritmOrder = 2;
+    int algoritmOrder = 0;
 
     void Start()
     {
@@ -65,12 +62,12 @@ public class GeneralController : MonoBehaviour
     /// <summary>
     /// Função que apresenta na interface informações do algoritmo
     /// </summary>
-    public void showValues(string algoritmName, int memory, double executionTime, double movimentCost)
+    public void showValues(string algoritmName, int memory, double movimentCost)
     {
         textAlgoritm.text = "" + algoritmName;
         textMemory.text = "Nós expandidos na memória: " + memory;
         textMovimentCost.text = "Custo de movimentação: " + movimentCost;
-        textExecutionTime.text = "Tempo de execução: " + executionTime;
+
     }
 
     /// <summary>
@@ -84,22 +81,22 @@ public class GeneralController : MonoBehaviour
             {
                 case 0:
                     runPathState.RunLargura();
-                    showValues("Busca em Largura", larguraMemoryCost, larguraTime, larguraMovimentCost);
+                    showValues("Busca em Largura", larguraMemoryCost, larguraMovimentCost);
                     algoritmOrder++;
                     break;
                 case 1:
                     runPathState.RunProfundidade();
-                    showValues("Busca em profundidade", profundidadeMemoryCost, profundidadeTime, profundidadeMovimentCost);
+                    showValues("Busca em profundidade", profundidadeMemoryCost, profundidadeMovimentCost);
                     algoritmOrder++;
                     break;
                 case 2:
                     runPathState.RunGulosa();
-                    showValues("Busca Gulosa", gulosaMemoryCost, gulosaTime, gulosaMovimentCost);
+                    showValues("Busca Gulosa", gulosaMemoryCost, gulosaMovimentCost);
                     algoritmOrder++;
                     break;
                 case 3:
                     runPathState.RunAStar();
-                    showValues("Busca A*", aStarMemoryCost, aStarTime, aStarMovimentCost);
+                    showValues("Busca A*", aStarMemoryCost, aStarMovimentCost);
                     algoritmOrder++;
                     break;
                 default:

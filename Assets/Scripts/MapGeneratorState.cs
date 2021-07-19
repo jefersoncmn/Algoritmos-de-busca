@@ -201,7 +201,6 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiro.left = null;
         }
 
-
         if (cellclass.left != null)
         {
             ponteiro = cellclass.left;
@@ -213,6 +212,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiro = cellclass.up;
             ponteiro.down = null;
         }
+
         if (cellclass.down != null)
         {
             ponteiro = cellclass.down;

@@ -110,7 +110,7 @@ public class PathFindingState : SimulatorState
                     { //se for o nó objetivo
                         //Debug.Log("Objeto encontrado");
                         generalController.larguraMemoryCost = verticesMarcados.Count;//Quantidade de nós guardados na memória
-                        generalController.larguraTime = 0;
+
 
                         for (int x = 0; x < verticesMarcados.Count; x++)
                         {
@@ -148,8 +148,6 @@ public class PathFindingState : SimulatorState
         DeepFindSearch(ponteiro, verticesMarcados);
 
         generalController.profundidadeMemoryCost = verticesMarcados.Count;
-
-        generalController.profundidadeTime = 0;
 
         for (int i = 0; i < verticesMarcados.Count; i++)
         {
@@ -359,8 +357,6 @@ public class PathFindingState : SimulatorState
         }
 
         generalController.aStarMemoryCost = verticesMarcados.Count;
-
-        generalController.aStarTime = 0;
 
         return path;
     }
