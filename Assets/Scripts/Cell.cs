@@ -15,4 +15,15 @@ public class Cell : MonoBehaviour
 
     public List<Cell> pathmemory = new List<Cell>();
 
+    public Cell()
+    {
+        left = null;
+        right = null;
+        up = null;
+        down = null;
+
+        endPoint = false;
+
+        ambientType = AmbientType.Plano;
+    }
 }

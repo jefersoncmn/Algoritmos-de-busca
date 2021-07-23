@@ -74,7 +74,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         ponteiroMovelA = ponteiroFixoA.right;
         ponteiroMovelB = ponteiroFixoB.right;
 
-        for (int x = 0; x < columns; x++)
+        for (int x = 0; x < columns - 1; x++)
         {
 
             for (int z = 0; z < lines - 1; z++)
@@ -95,7 +95,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiroMovelA = ponteiroFixoA.right;
             ponteiroMovelB = ponteiroFixoB.right;
         }
-        createWall(cellmap);
+        //createWall(cellmap);
 
         generalController.simulatorState = new PathFindingState(generalController);
     }
