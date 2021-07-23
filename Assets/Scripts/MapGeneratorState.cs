@@ -95,7 +95,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiroMovelA = ponteiroFixoA.right;
             ponteiroMovelB = ponteiroFixoB.right;
         }
-        //createWall(cellmap);
+        createWall(cellmap);
 
         generalController.simulatorState = new PathFindingState(generalController);
     }

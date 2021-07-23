@@ -10,14 +10,13 @@ public class GeneralController : MonoBehaviour
 {
 
     public int sizeMap = 36;
-
     public int celulaObjetivo = 35;
-
     public int indiceDeMuros = 200;
     public GameObject[] cellmap;
     public SimulatorState simulatorState;
     public GameObject cellmodel;
     public GameObject testmodel;
+    public GameObject explorationmodel;
     public List<Cell> sucessorFuctionProfundidade;
     public List<Cell> sucessorFuctionLargura;
     public List<Cell> sucessorFuctionGulosa;

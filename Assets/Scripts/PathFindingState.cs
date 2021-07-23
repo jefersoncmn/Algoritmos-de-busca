@@ -11,6 +11,13 @@ public class PathFindingState : SimulatorState
 
     GeneralController generalController;
 
+    public bool encontrado = false;
+
+    bool getEncontrado()
+    {
+        return encontrado;
+    }
+
     /// <summary>
     /// Construtor da classe que reproduzirá os algoritmos de busca
     /// </summary>
@@ -19,7 +26,6 @@ public class PathFindingState : SimulatorState
     {
         this.generalController = generalController;
 
-        //Debug.Log("Estado PathFinding");
         defineGoal();
 
         generalController.sucessorFuctionLargura = BuscaLargura(cellmap);
@@ -74,22 +80,7 @@ public class PathFindingState : SimulatorState
         {
             ponteiroAuxiliar = fila.Peek();
             //Debug.Log("Ponteiro auxiliar =" + ponteiroAuxiliar.coins);
-            if (ponteiroAuxiliar.right != ponteiroAuxiliar)
-            { //Caso ele aponte para o anterior ele não vai pra trás novamente
-                adjacente[0] = ponteiroAuxiliar.right;//meio que aqui era pra receber a lista de adjacencia
-            }
-            if (ponteiroAuxiliar.left != ponteiroAuxiliar)
-            {
-                adjacente[1] = ponteiroAuxiliar.left;
-            }
-            if (ponteiroAuxiliar.up != ponteiroAuxiliar)
-            {
-                adjacente[2] = ponteiroAuxiliar.up;
-            }
-            if (ponteiroAuxiliar.down != ponteiroAuxiliar)
-            {
-                adjacente[3] = ponteiroAuxiliar.down;
-            }
+            adjacente = CollectAdjacentsCells(ponteiroAuxiliar);
 
             int i = 0;
             while (i < 4) //percorre os vertices adjacentes
@@ -131,6 +122,41 @@ public class PathFindingState : SimulatorState
 
     }
 
+    List<Cell> BuscaLarguraw(List<Cell> cells)
+    {
+
+        return cells;
+    }
+
+    /// <summary>
+    /// Função que coleta todas as celulas vizinhas para a navegação dos algoritmos
+    /// </summary>
+    /// /// <param name="cell">Celula atual sendo visitada</param>
+    /// <returns></returns>
+    public Cell[] CollectAdjacentsCells(Cell cell)
+    {
+        Cell[] adjacente = new Cell[4];
+
+        if (cell.right != cell)
+        { //Caso ele aponte para o anterior ele não vai pra trás novamente
+            adjacente[0] = cell.right;//meio que aqui era pra receber a lista de adjacencia
+        }
+        if (cell.left != cell)
+        {
+            adjacente[1] = cell.left;
+        }
+        if (cell.up != cell)
+        {
+            adjacente[2] = cell.up;
+        }
+        if (cell.down != cell)
+        {
+            adjacente[3] = cell.down;
+        }
+
+        return adjacente;
+    }
+
     /// <summary>
     /// Função que inicializa o ambiente e variáveis para o uso do algoritmo de busca por profundidade 
     /// </summary>
@@ -169,22 +195,7 @@ public class PathFindingState : SimulatorState
     {
 
         Cell[] adjacente = new Cell[4];
-        if (ponteiroAuxiliar.right != ponteiroAuxiliar)
-        { //Caso ele aponte para o anterior ele não vai pra trás novamente
-            adjacente[0] = ponteiroAuxiliar.right;//meio que aqui era pra receber a lista de adjacencia
-        }
-        if (ponteiroAuxiliar.left != ponteiroAuxiliar)
-        {
-            adjacente[1] = ponteiroAuxiliar.left;
-        }
-        if (ponteiroAuxiliar.up != ponteiroAuxiliar)
-        {
-            adjacente[2] = ponteiroAuxiliar.up;
-        }
-        if (ponteiroAuxiliar.down != ponteiroAuxiliar)
-        {
-            adjacente[3] = ponteiroAuxiliar.down;
-        }
+        adjacente = CollectAdjacentsCells(ponteiroAuxiliar);
 
         if (ponteiroAuxiliar.endPoint == true)
         { //verifica se o cara é o objetivo
@@ -221,12 +232,7 @@ public class PathFindingState : SimulatorState
         return null;
     }
 
-    public bool encontrado = false;
 
-    bool getEncontrado()
-    {
-        return encontrado;
-    }
 
     List<Cell> BuscaGulosa(Cell[] cells)
     {
@@ -254,24 +260,7 @@ public class PathFindingState : SimulatorState
     List<Cell> BuscaGulosaAlgoritmo(Cell cell, List<Cell> verticesMarcados, List<Cell> melhoresValoresHeuristicos, List<Cell> path)
     {
         Cell[] adjacente = new Cell[4];
-
-        if (cell.right != cell)
-        { //Caso ele aponte para o anterior ele não vai pra trás novamente
-            adjacente[0] = cell.right;//meio que aqui era pra receber a lista de adjacencia
-        }
-        if (cell.left != cell)
-        {
-            adjacente[1] = cell.left;
-        }
-        if (cell.up != cell)
-        {
-            adjacente[2] = cell.up;
-        }
-        if (cell.down != cell)
-        {
-            adjacente[3] = cell.down;
-        }
-        //Debug.Log("Ponteiro =" + cell.coins);
+        adjacente = CollectAdjacentsCells(cell);
 
         if (cell.endPoint == true)
         { //verifica se o cara é o objetivo
@@ -353,7 +342,7 @@ public class PathFindingState : SimulatorState
         }
         for (int i = 0; i < path.Count; i++)
         {
-            Debug.Log("Passo " + i + " celula " + path[i].coins);
+            //Debug.Log("Passo " + i + " celula " + path[i].coins);
         }
 
         generalController.aStarMemoryCost = verticesMarcados.Count;
@@ -365,23 +354,7 @@ public class PathFindingState : SimulatorState
     {
 
         Cell[] adjacente = new Cell[4];
-
-        if (cell.right != cell)
-        { //Caso ele aponte para o anterior ele não vai pra trás novamente
-            adjacente[0] = cell.right;//meio que aqui era pra receber a lista de adjacencia
-        }
-        if (cell.left != cell)
-        {
-            adjacente[1] = cell.left;
-        }
-        if (cell.up != cell)
-        {
-            adjacente[2] = cell.up;
-        }
-        if (cell.down != cell)
-        {
-            adjacente[3] = cell.down;
-        }
+        adjacente = CollectAdjacentsCells(cell);
 
 
         //Debug.Log("Ponteiro =" + cell.coins);
