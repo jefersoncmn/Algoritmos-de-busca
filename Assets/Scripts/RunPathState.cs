@@ -73,6 +73,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
         runningTest = true;
 
         GameObject dummy = Instantiate(generalController.testmodel, new Vector3(0, 1.5f, 0), Quaternion.identity);
+        yield return new WaitForSeconds(1);
 
         for (int i = 0; i < path.Count - 1; i++)
         {
@@ -80,6 +81,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
             yield return new WaitForSeconds(1);
         }
 
+        yield return new WaitForSeconds(1);
         Destroy(dummy);
 
         runningTest = false;
@@ -96,7 +98,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
         startPosition.y = 1.5f;
         target.y = 1.5f;
 
-        dummy.transform.position = Vector3.Lerp(startPosition, target, Time.deltaTime);
+        dummy.transform.position = Vector3.Lerp(startPosition, target, Time.deltaTime * 1000);
     }
 
 
