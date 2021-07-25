@@ -107,7 +107,7 @@ public class PathFindingState : SimulatorState
                     {
                         for (int index = 0; index < ponteiro.pathmemory.Count; index++)
                         { //pega as rotas antigas pra celula nova explorada e guarda na memoria
-                            Debug.Log("marcado!");
+
                             adjacente[i].pathmemory.Add(ponteiro.pathmemory[index]);
                         }
                         adjacente[i].pathmemory.Add(adjacente[i]);
@@ -119,16 +119,12 @@ public class PathFindingState : SimulatorState
                         //Debug.Log("Celula " + adjacente[i].coins + " marcado como percorrido!");
                         verticesMarcados.Add(adjacente[i]); //adiciona na lista de percorridos
                         fila.Enqueue(adjacente[i]); //adiciona a fila 
+                        generalController.larguraMemoryCost++;
+                        generalController.exploredCellsLargura.Add(adjacente[i]);
                     }
 
                     if (adjacente[i].endPoint == true)
                     {
-                        generalController.larguraMemoryCost = verticesMarcados.Count;//Quantidade de nós guardados na memória
-
-                        for (int x = 0; x < verticesMarcados.Count; x++)
-                        {
-                            generalController.exploredCellsLargura.Add(verticesMarcados[x]);
-                        }
 
                         for (int x = 0; x < adjacente[i].pathmemory.Count; x++)
                         {
@@ -344,7 +340,10 @@ public class PathFindingState : SimulatorState
                 }
             }
         }
-
+        if (melhoresValoresHeuristicos.Count == 0)
+        {
+            return null;
+        }
         Cell melhorCelula = melhoresValoresHeuristicos[0];
         melhoresValoresHeuristicos.Remove(cell);
         for (int i = 0; i < melhoresValoresHeuristicos.Count; i++) //isso vai assegurar que ele só vai andar pelo que tem a melhor heurística
@@ -443,6 +442,10 @@ public class PathFindingState : SimulatorState
                     melhoresValoresHeuristicos.Add(adjacente[i]);
                 }
             }
+        }
+        if (melhoresValoresHeuristicos.Count == 0)
+        {
+            return null;
         }
         Cell melhorCelula = melhoresValoresHeuristicos[0];
         melhoresValoresHeuristicos.Remove(cell);

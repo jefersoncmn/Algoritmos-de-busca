@@ -52,11 +52,14 @@ public class GeneralController : MonoBehaviour
 
     int algoritmOrder = 0;
 
+    public GameObject panelError;
+
     void Start()
     {
         mapGenerationState = gameObject.AddComponent(typeof(MapGeneratorState)) as MapGeneratorState;
         mapGenerationState.SetGeneralController(this);
         simulatorState = mapGenerationState;
+        disabelPanelError();
     }
 
     public void simulate()
@@ -148,4 +151,13 @@ public class GeneralController : MonoBehaviour
         return this.sucessorFuctionAStar;
     }
 
+    public void enablePanelError()
+    {
+        panelError.SetActive(true);
+    }
+
+    public void disabelPanelError()
+    {
+        panelError.SetActive(false);
+    }
 }

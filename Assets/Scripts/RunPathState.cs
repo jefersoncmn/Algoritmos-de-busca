@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 /// <summary>
 /// Classe responsável pelo controle da apresentação do funcionamento dos algoritmos de busca, operando os itens da tela.
 /// </summary>
@@ -9,6 +10,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
 {
     GeneralController generalController;
     public bool runningTest = false;
+
     public void SetGeneralController(GeneralController generalController)
     {
         this.generalController = generalController;
@@ -24,14 +26,12 @@ public class RunPathState : MonoBehaviour, SimulatorState
         {
             if (generalController.exploredCellsLargura != null)
             {
-                Debug.Log("tamanho da funcao sucessora do largura =" + generalController.getSucessorFuctionLargura().Count);
                 StartCoroutine(ExploreRoutes(generalController.exploredCellsLargura, generalController.getSucessorFuctionLargura()));
+                if (generalController.getSucessorFuctionLargura() == null || generalController.getSucessorFuctionLargura().Count <= 0)
+                {
+                    generalController.enablePanelError();
+                }
             }
-            else
-            {
-                Debug.Log("Lista de exploracao vazia");
-            }
-
         }
     }
 
@@ -45,10 +45,10 @@ public class RunPathState : MonoBehaviour, SimulatorState
             if (generalController.exploredCellsProfundidade != null)
             {
                 StartCoroutine(ExploreRoutes(generalController.exploredCellsProfundidade, generalController.getSucessorFuctionProfundidade()));
-            }
-            else
-            {
-                Debug.Log("Lista de exploracao vazia");
+                if (generalController.getSucessorFuctionProfundidade() == null || generalController.getSucessorFuctionProfundidade().Count <= 0)
+                {
+                    generalController.enablePanelError();
+                }
             }
 
         }
@@ -68,7 +68,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
             }
             else
             {
-                Debug.Log("Lista de exploracao vazia");
+                generalController.enablePanelError();
             }
 
         }
@@ -88,7 +88,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
             }
             else
             {
-                Debug.Log("Lista de exploracao vazia");
+                generalController.enablePanelError();
             }
 
         }
@@ -156,13 +156,14 @@ public class RunPathState : MonoBehaviour, SimulatorState
             Destroy(exploredRoutesObjects[i]);
         }
 
-        if (path != null || path.Count == 0)
+        if (path != null && path.Count > 0)
         {
             StartCoroutine(TestRoute(path));
         }
         else
         {
             Debug.Log("Não foi possível encontrar um caminho");
+            runningTest = false;
         }
     }
 
