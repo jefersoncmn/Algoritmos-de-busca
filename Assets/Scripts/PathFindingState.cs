@@ -28,10 +28,14 @@ public class PathFindingState : SimulatorState
 
         defineGoal();
 
-        generalController.sucessorFuctionLargura = BuscaLargura(cellmap);
-        generalController.sucessorFuctionProfundidade = BuscaProfundidade(cellmap);
-        generalController.sucessorFuctionGulosa = BuscaGulosa(cellmap);
-        generalController.sucessorFuctionAStar = BuscaAStar(cellmap);
+        cleanPathMemory(cellmap);
+        generalController.setSucessorFuctionLargura(BuscaLargura(cellmap));
+        cleanPathMemory(cellmap);
+        generalController.setSucessorFuctionProfundidade(BuscaProfundidade(cellmap));
+        cleanPathMemory(cellmap);
+        generalController.setSucessorFuctionGulosa(BuscaGulosa(cellmap));
+        cleanPathMemory(cellmap);
+        generalController.setSucessorFuctionAStar(BuscaAStar(cellmap));
 
         generalController.simulate();
 
@@ -53,6 +57,14 @@ public class PathFindingState : SimulatorState
         }
     }
 
+    void cleanPathMemory(Cell[] cellmap)
+    {
+        for (int i = 0; i < cellmap.Length; i++)
+        {
+            cellmap[i].pathmemory = new List<Cell>();
+        }
+    }
+
 
     /// <summary>
     /// Algoritmo de busca em largura
@@ -64,9 +76,11 @@ public class PathFindingState : SimulatorState
         //Debug.Log("Busca em Lagura inicializada!");
         Queue<Cell> fila = new Queue<Cell>();
 
+        List<Cell> path = new List<Cell>();
+
         List<Cell> verticesMarcados = new List<Cell>();
 
-        Cell ponteiro, ponteiroAuxiliar;
+        Cell ponteiro;
 
         Cell[] adjacente = new Cell[4];
 
@@ -76,27 +90,37 @@ public class PathFindingState : SimulatorState
 
         fila.Enqueue(ponteiro);//coloca raiz na fila
 
+        ponteiro.pathmemory.Add(ponteiro);
+
         while (fila.Count != 0)
         {
-            ponteiroAuxiliar = fila.Peek();
-            //Debug.Log("Ponteiro auxiliar =" + ponteiroAuxiliar.coins);
-            adjacente = CollectAdjacentsCells(ponteiroAuxiliar);
+            ponteiro = fila.Peek();
+            //Debug.Log("Ponteiro auxili =" + ponteiro.coins);
+            adjacente = CollectAdjacentsCells(ponteiro);
 
             int i = 0;
             while (i < 4) //percorre os vertices adjacentes
             {
                 if (adjacente[i] != null)
                 {
+                    if (adjacente[i].pathmemory.Count == 0)
+                    {
+                        for (int index = 0; index < ponteiro.pathmemory.Count; index++)
+                        { //pega as rotas antigas pra celula nova explorada e guarda na memoria
+                            Debug.Log("marcado!");
+                            adjacente[i].pathmemory.Add(ponteiro.pathmemory[index]);
+                        }
+                        adjacente[i].pathmemory.Add(adjacente[i]);
+                    }
+
+
                     if (!verticesMarcados.Contains(adjacente[i])) //se nÃo foram percorridos
                     {
                         //Debug.Log("Celula " + adjacente[i].coins + " marcado como percorrido!");
                         verticesMarcados.Add(adjacente[i]); //adiciona na lista de percorridos
                         fila.Enqueue(adjacente[i]); //adiciona a fila 
                     }
-                    // if (fila.Contains(adjacente[i]))
-                    // {
 
-                    // }
                     if (adjacente[i].endPoint == true)
                     { //se for o nó objetivo
                         //Debug.Log("Objeto encontrado");
@@ -109,7 +133,7 @@ public class PathFindingState : SimulatorState
                             generalController.larguraMovimentCost += ((double)verticesMarcados[x].ambientType); //custo de movimentacao
                         }
 
-                        return verticesMarcados;
+                        return adjacente[i].pathmemory;
                     }
                 }
 
@@ -132,19 +156,19 @@ public class PathFindingState : SimulatorState
     {
         Cell[] adjacente = new Cell[4];
 
-        if (cell.right != cell)
+        if (cell.right != null && cell.right != cell)
         { //Caso ele aponte para o anterior ele não vai pra trás novamente
             adjacente[0] = cell.right;//meio que aqui era pra receber a lista de adjacencia
         }
-        if (cell.left != cell)
+        if (cell.left != null && cell.left != cell)
         {
             adjacente[1] = cell.left;
         }
-        if (cell.up != cell)
+        if (cell.up != null && cell.up != cell)
         {
             adjacente[2] = cell.up;
         }
-        if (cell.down != cell)
+        if (cell.down != null && cell.down != cell)
         {
             adjacente[3] = cell.down;
         }
@@ -161,12 +185,15 @@ public class PathFindingState : SimulatorState
     {
         //Debug.Log("Busca em Profundidade inicializada!");
         List<Cell> verticesMarcados = new List<Cell>();
+        List<Cell> path = new List<Cell>();
         Cell ponteiro;
 
         ponteiro = cells[0];
         verticesMarcados.Add(ponteiro);
 
-        DeepFindSearch(ponteiro, verticesMarcados);
+        ponteiro.pathmemory.Add(ponteiro);
+
+        DeepFindSearch(ponteiro, verticesMarcados, path);
 
         generalController.profundidadeMemoryCost = verticesMarcados.Count;
 
@@ -177,7 +204,7 @@ public class PathFindingState : SimulatorState
             generalController.exploredCellsProfundidade.Add(verticesMarcados[i]);
         }
 
-        return verticesMarcados;
+        return path;
     }
 
     /// <summary>
@@ -187,20 +214,23 @@ public class PathFindingState : SimulatorState
     /// <param name="ponteiroAuxiliar">Celula que está explorando</param>
     /// <param name="verticesMarcados">Lista com celulas que já foram visitadas</param>
     /// <returns></returns>
-    List<Cell> DeepFindSearch(Cell ponteiroAuxiliar, List<Cell> verticesMarcados)
+    List<Cell> DeepFindSearch(Cell ponteiro, List<Cell> verticesMarcados, List<Cell> path)
     {
 
         Cell[] adjacente = new Cell[4];
-        adjacente = CollectAdjacentsCells(ponteiroAuxiliar);
+        adjacente = CollectAdjacentsCells(ponteiro);
 
-        if (ponteiroAuxiliar.endPoint == true)
+        if (ponteiro.endPoint == true)
         { //verifica se o cara é o objetivo
-            //Debug.Log("Objetivo encontrado!" + "Celula " + ponteiroAuxiliar.coins);
+          //Debug.Log("Objetivo encontrado!" + "Celula " + ponteiroAuxiliar.coins);
+            for (int x = 0; x < ponteiro.pathmemory.Count; x++)
+            {
+                //Debug.Log("Ponto adicionado no final =" + ponteiro.pathmemory[x].coins);
+                path.Add(ponteiro.pathmemory[x]);
+            }
             encontrado = true;
-            //encontrado = true;
             return null;
         }
-
 
         for (int i = 0; i < 4; i++)//ele percorre todos as arestas
         {
@@ -208,23 +238,29 @@ public class PathFindingState : SimulatorState
             {
                 if (adjacente[i] != null)
                 {
-                    if (!verticesMarcados.Contains(adjacente[i]) && !ponteiroAuxiliar.endPoint == true)
+                    if (!verticesMarcados.Contains(adjacente[i]) && !ponteiro.endPoint == true)
                     {
                         verticesMarcados.Add(adjacente[i]);
+
+                        if (adjacente[i].pathmemory.Count == 0)
+                        {
+                            for (int index = 0; index < ponteiro.pathmemory.Count; index++)
+                            { //pega as rotas antigas pra celula nova explorada e guarda na memoria
+                                adjacente[i].pathmemory.Add(ponteiro.pathmemory[index]);
+                            }
+                            adjacente[i].pathmemory.Add(adjacente[i]);
+                        }
+
                         //Debug.Log("celula marcada " + adjacente[i].coins);
                         //Debug.Log("Encontrado " + getEncontrado());
-                        //Debug.Log("Movimento de celula " + ponteiroAuxiliar.coins + " para " + adjacente[i].coins);
-                        DeepFindSearch(adjacente[i], verticesMarcados);
+                        //Debug.Log("Movimento de celula " + ponteiro.coins + " para " + adjacente[i].coins);
+                        DeepFindSearch(adjacente[i], verticesMarcados, path);
                     }
 
                 }
             }
 
-
         }
-
-
-
         return null;
     }
 
@@ -241,6 +277,8 @@ public class PathFindingState : SimulatorState
 
         ponteiro = cells[0];
         verticesMarcados.Add(ponteiro);
+
+        ponteiro.pathmemory.Add(ponteiro);
 
         BuscaGulosaAlgoritmo(ponteiro, verticesMarcados, melhoresValoresHeuristicos, path);
 

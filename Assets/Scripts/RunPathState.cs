@@ -24,8 +24,8 @@ public class RunPathState : MonoBehaviour, SimulatorState
         {
             if (generalController.exploredCellsLargura != null)
             {
-                Debug.Log("tamanho da funcao sucessora do largura =" + generalController.sucessorFuctionLargura.Count);
-                StartCoroutine(ExploreRoutes(generalController.exploredCellsLargura, generalController.sucessorFuctionLargura));
+                Debug.Log("tamanho da funcao sucessora do largura =" + generalController.getSucessorFuctionLargura().Count);
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsLargura, generalController.getSucessorFuctionLargura()));
             }
             else
             {
@@ -44,7 +44,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
         {
             if (generalController.exploredCellsProfundidade != null)
             {
-                StartCoroutine(ExploreRoutes(generalController.exploredCellsProfundidade, generalController.sucessorFuctionProfundidade));
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsProfundidade, generalController.getSucessorFuctionProfundidade()));
             }
             else
             {
@@ -64,7 +64,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
         {
             if (generalController.exploredCellsGulosa != null)
             {
-                StartCoroutine(ExploreRoutes(generalController.exploredCellsGulosa, generalController.sucessorFuctionGulosa));
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsGulosa, generalController.getSucessorFuctionGulosa()));
             }
             else
             {
@@ -84,7 +84,7 @@ public class RunPathState : MonoBehaviour, SimulatorState
         {
             if (generalController.exploredCellsAStar != null)
             {
-                StartCoroutine(ExploreRoutes(generalController.exploredCellsAStar, generalController.sucessorFuctionAStar));
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsAStar, generalController.getSucessorFuctionAStar()));
             }
             else
             {

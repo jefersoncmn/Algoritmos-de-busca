@@ -19,10 +19,14 @@ public class GeneralController : MonoBehaviour
     public GameObject explorationmodel;
     public GameObject goalmodel;
     public GameObject startmodel;
-    public List<Cell> sucessorFuctionProfundidade;
-    public List<Cell> sucessorFuctionLargura;
-    public List<Cell> sucessorFuctionGulosa;
-    public List<Cell> sucessorFuctionAStar;
+    [SerializeField]
+    private List<Cell> sucessorFuctionProfundidade = null;
+    [SerializeField]
+    private List<Cell> sucessorFuctionLargura = null;
+    [SerializeField]
+    private List<Cell> sucessorFuctionGulosa = null;
+    [SerializeField]
+    private List<Cell> sucessorFuctionAStar = null;
     public List<Cell> exploredCellsLargura;
     public List<Cell> exploredCellsProfundidade;
     public List<Cell> exploredCellsGulosa;
@@ -109,4 +113,39 @@ public class GeneralController : MonoBehaviour
         }
 
     }
+
+    public void setSucessorFuctionLargura(List<Cell> sucessorFuctionLargura)
+    {
+        this.sucessorFuctionLargura = sucessorFuctionLargura;
+    }
+
+    public List<Cell> getSucessorFuctionLargura()
+    {
+        return this.sucessorFuctionLargura;
+    }
+    public void setSucessorFuctionProfundidade(List<Cell> sucessorFuctionProfundidade)
+    {
+        this.sucessorFuctionProfundidade = sucessorFuctionProfundidade;
+    }
+    public List<Cell> getSucessorFuctionProfundidade()
+    {
+        return this.sucessorFuctionProfundidade;
+    }
+    public void setSucessorFuctionGulosa(List<Cell> sucessorFuctionGulosa)
+    {
+        this.sucessorFuctionGulosa = sucessorFuctionGulosa;
+    }
+    public List<Cell> getSucessorFuctionGulosa()
+    {
+        return this.sucessorFuctionGulosa;
+    }
+    public void setSucessorFuctionAStar(List<Cell> sucessorFuctionAStar)
+    {
+        this.sucessorFuctionAStar = sucessorFuctionAStar;
+    }
+    public List<Cell> getSucessorFuctionAStar()
+    {
+        return this.sucessorFuctionAStar;
+    }
+
 }
