@@ -22,9 +22,17 @@ public class RunPathState : MonoBehaviour, SimulatorState
     {
         if (runningTest == false)
         {
-            StartCoroutine(TestRoute(generalController.sucessorFuctionLargura));
-        }
+            if (generalController.exploredCellsLargura != null)
+            {
+                Debug.Log("tamanho da funcao sucessora do largura =" + generalController.sucessorFuctionLargura.Count);
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsLargura, generalController.sucessorFuctionLargura));
+            }
+            else
+            {
+                Debug.Log("Lista de exploracao vazia");
+            }
 
+        }
     }
 
     /// <summary>
@@ -34,7 +42,15 @@ public class RunPathState : MonoBehaviour, SimulatorState
     {
         if (runningTest == false)
         {
-            StartCoroutine(TestRoute(generalController.sucessorFuctionProfundidade));
+            if (generalController.exploredCellsProfundidade != null)
+            {
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsProfundidade, generalController.sucessorFuctionProfundidade));
+            }
+            else
+            {
+                Debug.Log("Lista de exploracao vazia");
+            }
+
         }
 
     }
@@ -46,7 +62,15 @@ public class RunPathState : MonoBehaviour, SimulatorState
     {
         if (runningTest == false)
         {
-            StartCoroutine(TestRoute(generalController.sucessorFuctionGulosa));
+            if (generalController.exploredCellsGulosa != null)
+            {
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsGulosa, generalController.sucessorFuctionGulosa));
+            }
+            else
+            {
+                Debug.Log("Lista de exploracao vazia");
+            }
+
         }
 
     }
@@ -58,7 +82,15 @@ public class RunPathState : MonoBehaviour, SimulatorState
     {
         if (runningTest == false)
         {
-            StartCoroutine(TestRoute(generalController.sucessorFuctionAStar));
+            if (generalController.exploredCellsAStar != null)
+            {
+                StartCoroutine(ExploreRoutes(generalController.exploredCellsAStar, generalController.sucessorFuctionAStar));
+            }
+            else
+            {
+                Debug.Log("Lista de exploracao vazia");
+            }
+
         }
 
     }
@@ -70,8 +102,6 @@ public class RunPathState : MonoBehaviour, SimulatorState
     /// <returns></returns>
     IEnumerator TestRoute(List<Cell> path)
     {
-        runningTest = true;
-
         GameObject dummy = Instantiate(generalController.testmodel, new Vector3(0, 1.5f, 0), Quaternion.identity);
         yield return new WaitForSeconds(1);
 
@@ -101,7 +131,39 @@ public class RunPathState : MonoBehaviour, SimulatorState
         dummy.transform.position = Vector3.Lerp(startPosition, target, Time.deltaTime * 1000);
     }
 
+    /// <summary>
+    /// Função responsável por instanciar os blocos que representam como é feito a exploracao pelo algoritmo de busca
+    /// Depois chama a função que mostrará a rota encotrada até o objetivo
+    /// </summary>
+    /// <param name="exploredCells">Lista com as celulas exploradas</param>
+    /// <param name="path">Lista com as celulas do caminho até o objetivo final</param>
+    /// <returns></returns>
+    IEnumerator ExploreRoutes(List<Cell> exploredCells, List<Cell> path)
+    {
+        List<GameObject> exploredRoutesObjects = new List<GameObject>();
+        runningTest = true;
 
+        for (int i = 0; i < exploredCells.Count; i++)
+        {
+            GameObject exploreRouteObj = Instantiate(generalController.explorationmodel, new Vector3(exploredCells[i].gameObject.transform.position.x, 0.5f, exploredCells[i].gameObject.transform.position.z), Quaternion.identity);
+            exploredRoutesObjects.Add(exploreRouteObj);
+            yield return new WaitForSeconds(1);
+        }
+        yield return new WaitForSeconds(1);
 
+        for (int i = 0; i < exploredRoutesObjects.Count; i++)
+        {
+            Destroy(exploredRoutesObjects[i]);
+        }
+
+        if (path != null || path.Count == 0)
+        {
+            StartCoroutine(TestRoute(path));
+        }
+        else
+        {
+            Debug.Log("Não foi possível encontrar um caminho");
+        }
+    }
 
 }
