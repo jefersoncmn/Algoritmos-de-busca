@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeMap: 36
   celulaObjetivo: 35
-  indiceDeMuros: 80
+  indiceDeMuros: 200
   cellmap: []
   cellmodel: {fileID: 7996002272787468625, guid: f7c7952de219a414cb1068e50a8815e3, type: 3}
   testmodel: {fileID: 2678702272873801504, guid: 483f1f248074ab24080e5107b89a1de2, type: 3}
