@@ -105,6 +105,7 @@ public class PathFindingState : SimulatorState
 
                         for (int x = 0; x < verticesMarcados.Count; x++)
                         {
+                            generalController.exploredCellsLargura.Add(verticesMarcados[x]);
                             generalController.larguraMovimentCost += ((double)verticesMarcados[x].ambientType); //custo de movimentacao
                         }
 
@@ -120,12 +121,6 @@ public class PathFindingState : SimulatorState
 
         return null;
 
-    }
-
-    List<Cell> BuscaLarguraw(List<Cell> cells)
-    {
-
-        return cells;
     }
 
     /// <summary>
@@ -179,6 +174,7 @@ public class PathFindingState : SimulatorState
         {
             //Debug.Log("Posição percorrida " + i + " celula =" + verticesMarcados[i].coins);
             generalController.profundidadeMovimentCost += ((double)verticesMarcados[i].ambientType);
+            generalController.exploredCellsProfundidade.Add(verticesMarcados[i]);
         }
 
         return verticesMarcados;
@@ -248,9 +244,15 @@ public class PathFindingState : SimulatorState
 
         BuscaGulosaAlgoritmo(ponteiro, verticesMarcados, melhoresValoresHeuristicos, path);
 
+        for (int i = 0; i < verticesMarcados.Count; i++)
+        {
+            generalController.exploredCellsGulosa.Add(verticesMarcados[i]);
+        }
+
         for (int i = 0; i < path.Count; i++)
         {
             //Debug.Log("Posição percorrida " + i + " celula =" + path[i].coins);
+            generalController.gulosaMovimentCost += ((double)path[i].ambientType);
         }
 
         return path;
@@ -338,10 +340,11 @@ public class PathFindingState : SimulatorState
 
         for (int i = 0; i < verticesMarcados.Count; i++)
         {
-            generalController.aStarMovimentCost += ((float)verticesMarcados[i].ambientType);
+            generalController.exploredCellsAStar.Add(verticesMarcados[i]);
         }
         for (int i = 0; i < path.Count; i++)
         {
+            generalController.aStarMovimentCost += ((double)path[i].ambientType);
             //Debug.Log("Passo " + i + " celula " + path[i].coins);
         }
 
