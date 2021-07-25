@@ -17,6 +17,8 @@ public class GeneralController : MonoBehaviour
     public GameObject cellmodel;
     public GameObject testmodel;
     public GameObject explorationmodel;
+    public GameObject goalmodel;
+    public GameObject startmodel;
     public List<Cell> sucessorFuctionProfundidade;
     public List<Cell> sucessorFuctionLargura;
     public List<Cell> sucessorFuctionGulosa;

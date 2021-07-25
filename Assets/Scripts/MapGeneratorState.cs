@@ -97,6 +97,9 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         }
         createWall(cellmap);
 
+        defineStart();
+        defineGoal();
+
         generalController.simulatorState = new PathFindingState(generalController);
     }
 
@@ -222,5 +225,19 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
         Destroy(cell);
     }
 
+    /// <summary>
+    /// Função que instancia indicador da celula objetivo do mapa
+    /// </summary>
+    void defineGoal()
+    {
+        Instantiate(generalController.goalmodel, new Vector3(cellmap[generalController.celulaObjetivo].transform.position.x, 0.5f, cellmap[generalController.celulaObjetivo].transform.position.z), Quaternion.identity);
+    }
 
+    /// <summary>
+    /// Função responsável por instanciar o indicador de onde é a posição inicial
+    /// </summary>
+    void defineStart()
+    {
+        Instantiate(generalController.startmodel, new Vector3(0, 0.5f, 0), Quaternion.identity);
+    }
 }
