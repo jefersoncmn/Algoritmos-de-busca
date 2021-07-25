@@ -21,16 +21,19 @@ public class GeneralController : MonoBehaviour
     public List<Cell> sucessorFuctionLargura;
     public List<Cell> sucessorFuctionGulosa;
     public List<Cell> sucessorFuctionAStar;
+    public List<Cell> exploredCellsLargura;
+    public List<Cell> exploredCellsProfundidade;
+    public List<Cell> exploredCellsGulosa;
+    public List<Cell> exploredCellsAStar;
+    public int profundidadeMemoryCost = 0;
+    public int larguraMemoryCost = 0;
+    public int gulosaMemoryCost = 0;
+    public int aStarMemoryCost = 0;
 
-    public int profundidadeMemoryCost;
-    public int larguraMemoryCost;
-    public int gulosaMemoryCost;
-    public int aStarMemoryCost;
-
-    public double profundidadeMovimentCost;
-    public double larguraMovimentCost;
-    public double gulosaMovimentCost;
-    public double aStarMovimentCost;
+    public double profundidadeMovimentCost = 0;
+    public double larguraMovimentCost = 0;
+    public double gulosaMovimentCost = 0;
+    public double aStarMovimentCost = 0;
 
     public Text textMemory;
 
