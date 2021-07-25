@@ -122,15 +122,17 @@ public class PathFindingState : SimulatorState
                     }
 
                     if (adjacente[i].endPoint == true)
-                    { //se for o nó objetivo
-                        //Debug.Log("Objeto encontrado");
+                    {
                         generalController.larguraMemoryCost = verticesMarcados.Count;//Quantidade de nós guardados na memória
-
 
                         for (int x = 0; x < verticesMarcados.Count; x++)
                         {
                             generalController.exploredCellsLargura.Add(verticesMarcados[x]);
-                            generalController.larguraMovimentCost += ((double)verticesMarcados[x].ambientType); //custo de movimentacao
+                        }
+
+                        for (int x = 0; x < adjacente[i].pathmemory.Count; x++)
+                        {
+                            generalController.larguraMovimentCost += ((double)adjacente[i].pathmemory[x].ambientType); //custo de movimentacao
                         }
 
                         return adjacente[i].pathmemory;
@@ -195,13 +197,17 @@ public class PathFindingState : SimulatorState
 
         DeepFindSearch(ponteiro, verticesMarcados, path);
 
-        generalController.profundidadeMemoryCost = verticesMarcados.Count;
+        generalController.profundidadeMemoryCost = path.Count;
 
         for (int i = 0; i < verticesMarcados.Count; i++)
         {
             //Debug.Log("Posição percorrida " + i + " celula =" + verticesMarcados[i].coins);
-            generalController.profundidadeMovimentCost += ((double)verticesMarcados[i].ambientType);
             generalController.exploredCellsProfundidade.Add(verticesMarcados[i]);
+        }
+
+        for (int i = 0; i < path.Count; i++)
+        {
+            generalController.profundidadeMovimentCost += ((double)path[i].ambientType);
         }
 
         return path;
@@ -292,6 +298,8 @@ public class PathFindingState : SimulatorState
             //Debug.Log("Posição percorrida " + i + " celula =" + path[i].coins);
             generalController.gulosaMovimentCost += ((double)path[i].ambientType);
         }
+
+        generalController.gulosaMemoryCost = verticesMarcados.Count;
 
         return path;
     }
