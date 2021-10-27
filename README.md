@@ -18,6 +18,8 @@ Tabela de conteúdos
 
 ### Sobre
 
+![](https://github.com/jefersoncmn/fsiWork1/blob/main/github/testAStart.GIF)
+
 Esse é o primeiro trabalho para matéria de Fundamentos de Sistemas Inteligentes. Realizado no ano de 2021.
 O projeto se trata da criação de um cenário e a execução de algoritmos de busca.
 
