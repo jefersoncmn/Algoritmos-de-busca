@@ -19,6 +19,18 @@ Tabela de conteúdos
 ### Sobre
 
 Esse é o primeiro trabalho para matéria de Fundamentos de Sistemas Inteligentes. Realizado no ano de 2021.
+O projeto se trata da criação de um cenário e a execução de algoritmos de busca.
+
+Os algoritmos de busca implementados foram:
+- Busca em largura;
+- Busca em profundidade;
+- Busca Gulosa;
+- A*;
+
+O cenário criado foi feito com a base de uma matriz encadeada.
+Cada terreno tem seu custo de movimentação, que é feito a distribuição desses tipos de terreno através do algoritmo Perlin Noise.
+
+
 Informações adicionais na Wiki do projeto.
 
 ### Estudo
