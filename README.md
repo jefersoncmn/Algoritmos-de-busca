@@ -1,4 +1,4 @@
-<h1 align="center">Trabalho de Fundamentos de Sistemas Inteligentes</h1>
+<h1 align="center">Algoritmos de busca</h1>
 <p align="center">Path Finding Algoritms</p>
 
 Tabela de conteúdos
