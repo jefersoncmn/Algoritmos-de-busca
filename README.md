@@ -6,15 +6,9 @@ Tabela de conteúdos
 <!--ts-->
    * [Sobre](#sobre)
    * [Estudo](#estudo)
-   * [Features](#features)
-      * [Pre Requisitos](#pré-requisitos)
-   * [Tecnologias](#tecnologias)
+   * [Pre Requisitos](#pré-requisitos)
    * [Autores](#autores)
 <!--te-->
-
-<h4 align="center"> 
-	🚧  Em desenvolvimento...  🚧
-</h4>
 
 ### Sobre
 
@@ -39,25 +33,15 @@ Informações adicionais na Wiki do projeto.
 
 No projeto será estudado:
 - Algoritmos de busca
-
-### Features
-
-- [ ] Desenvolvimento do cenário de testes
-- [ ] Implentação dos algoritmos de busca
+- Unity
+- C#
 
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:<br>
 - [Git](https://git-scm.com);<br>
-- [VSCode](https://code.visualstudio.com/)
-
-### Tecnologias
-
-As seguintes ferramentas foram usadas na construção do projeto:
-
-- [Unity](https://unity.com) Versão *2020.3.10f1*
-
-Feito por Jeferson Carlos Martin 👋🏽 Entre em contato!
+- [VSCode](https://code.visualstudio.com/) ou algum outro programa para realizar a edição de código.
+- [Unity](https://unity.com) Versão *2020.3.10f1*.
 
 <h2 align="center">Autores<h3/>
 
@@ -69,7 +53,17 @@ Feito por Jeferson Carlos Martin 👋🏽 Entre em contato!
     </td>
 </table>
 	
+<h2 align="center">Contatos<h3/>
+	
+<br>
+	
+Jeferson Carlos Martin<br>
+	
 [![Linkedin Badge](https://img.shields.io/badge/-Jefersoncmn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jefcmn/)](https://www.linkedin.com/in/jefcmn/) 
 [![Gmail Badge](https://img.shields.io/badge/-jefersoncmnn@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:jefersoncmnn@gmail.com)](mailto:jefersoncmnn@gmail.com)
+	
+<br>
 
+Débora Marim<br>
+	
 [![Linkedin Badge](https://img.shields.io/badge/-Debora_Marim-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/débora-marim-6b3b97193/)](https://www.linkedin.com/in/débora-marim-6b3b97193/) 
