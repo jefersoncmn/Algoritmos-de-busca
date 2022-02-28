@@ -95,7 +95,7 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
             ponteiroMovelA = ponteiroFixoA.right;
             ponteiroMovelB = ponteiroFixoB.right;
         }
-        createWall(cellmap);
+        createHole(cellmap);
 
         defineStart();
         defineGoal();
@@ -170,10 +170,10 @@ public class MapGeneratorState : MonoBehaviour, SimulatorState
 
 
     /// <summary>
-    /// Função que seleciona randomicamente celulas para serem tiradas do mapa. Que será uma espécie de parede.
+    /// Função que seleciona randomicamente celulas para serem tiradas do mapa
     /// </summary>
     /// <param name="cellmap"></param>
-    void createWall(GameObject[] cellmap)
+    void createHole(GameObject[] cellmap)
     {
         for (int i = 0; i < generalController.sizeMap; i++)
         {
