@@ -1449,7 +1449,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 181.1416, y: 480.1687}
+  m_SizeDelta: {x: 191.4778, y: 480.1687}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1911550615
 MonoBehaviour:
@@ -1512,8 +1512,8 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!1 &1958046595
 GameObject:
